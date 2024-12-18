@@ -1,0 +1,293 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-45deg, #0e0300, #07023b, #0c042b ,#5500ff,#060100,#160240,#00ffddbc,#03012d);
+
+    /* background: linear-gradient(-45deg, #ff3300, #ff0000, #0d00f4 ,#5500ff,#ff3300,#0d00ff); */
+    background-size: 400% 400%;
+    animation: gradientBG 55s ease infinite;
+    color: #fff;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+select, option {
+    background-color: #333;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+button, select {
+    background-color: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+button:hover, select:hover {
+    background-color: rgba(255,255,255,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.game-selection {
+    text-align: center;
+    justify-content: center;
+    font-size: 200px !important;
+    margin-bottom: 30px;
+    padding: 15px 30px !important;
+}
+.game-info {
+    text-align: center;
+    justify-content: center;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+
+.table {
+    display: flex;
+    justify-content: space-around;
+    perspective: 1000px;
+}
+
+.player {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    width: 45%;
+    transition: transform 0.5s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.player:hover {
+    transform: rotateY(5deg) translateZ(20px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 80px;
+    height: 120px;
+    margin: 10px;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.6s,box-shadow 0.3s;
+    transform-style: preserve-3d;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotateY(10deg);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.card-front {
+    background-color: #fff;
+    color: #000;
+}
+
+.card-back {
+    background: linear-gradient(45deg, #1a237e, #3949ab);
+    color: #fff;
+    transform: rotateY(180deg);
+}
+
+.card-rank {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card-suit {
+    font-size: 36px;
+}
+
+.card-details {
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+}
+
+.result {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 30px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px);
+}
+
+.winner-text {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+
+@media (max-width: 768px) {
+    .table {
+        flex-direction: column;
+        align-items: center;
+    }
+    .player {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    .player.active {
+        /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); */
+        box-shadow: 0 0 40px rgba(255, 217, 0, 0.941);     
+            border: 2px solid gold;
+    }
+}
+
+
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 4px rgba(255,255,255,0.1),
+        0 0 0 8px rgba(255,255,255,0.1),
+        0 0 20px rgba(255,255,255,0.1);
+    animation: animate 2s linear infinite;
+}
+
+span::before {
+    content:'';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg,#fff,transparent);
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(315deg) translateX(0);
+        opacity: 1;
+    }
+    
+   70% {
+       opacity: 1;
+   }
+   
+   100% {
+       transform: rotate(315deg) translateX(-1000px);
+       opacity: 0;
+   }
+}
+
+/* Positioning spans for shooting stars */
+span:nth-child(11) { top: 0; right: 0; left: initial; animation-delay: 0s; animation-duration: 1s; }
+span:nth-child(2) { top: 0; right: 80px; left: initial; animation-delay: 0.2s; animation-duration: 3s; }
+span:nth-child(3) { top: 80; right: 0px; left: initial; animation-delay: 0.4s; animation-duration: 2s; }
+span:nth-child(4) { top: 0; right: 180px; left: initial; animation-delay: 0.6s; animation-duration: 1.5s; }
+span:nth-child(5) { top: 0; right: 400px; left: initial; animation-delay: 0.8s; animation-duration: 2.5s; }
+span:nth-child(6) { top: 0; right: 600px; left: initial; animation-delay: 1s; animation-duration: 3s; }
+span:nth-child(7) { top: 300px; right: 0px; left: initial; animation-delay: 1.2s; animation-duration: 1.75s; }
+span:nth-child(8) { top: 0px; right: 700px; left: initial; animation-delay: 1.4s; animation-duration: 1.25s; }
+span:nth-child(9) { top: 0px; right:1000px; left :initial ;animation-delay : .75s ;animation-duration :2.25s;}
+span:nth-child(10){top :0px ;right :450px ;left :initial ;animation-delay :2.75s ;animation-duration :2.75s;}
+
+
+
